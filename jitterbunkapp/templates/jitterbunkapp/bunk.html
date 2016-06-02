@@ -1,0 +1,17 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'jitterbunkapp/style.css' %}" />
+
+<h1>Hi {{ user.username }}!</h1>
+<h3>Who do you want to bunk?</h3>
+
+<form action="." method="post">
+{% csrf_token %}
+    {% for to_user in user_list %}
+    	{% if to_user != user %}
+		    <input type="radio" name="to_user" id="user{{ forloop.counter }}" value="{{ to_user.pk }}" />
+		    <label for="user{{ forloop.counter }}">{{ to_user.username }}</label><br />
+	    {% endif %}
+	{% endfor %}
+    <input id="submit" type="submit" value="Bunk!">
+</form>

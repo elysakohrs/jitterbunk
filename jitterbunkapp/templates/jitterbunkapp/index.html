@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'jitterbunkapp/style.css' %}" />
+
+<h1>Main Bunk Feed</h1>
+{% if bunk_list %}
+	<table>
+	{% for bunk in bunk_list %}
+		<tr>
+			<td>
+				<div>
+					<img src="{{ bunk.from_user.photo_url }}" height="100"/>
+				</div>
+				<div>				
+					<a href="{{ bunk.from_user.pk }}">{{ bunk.from_user.username }}</a>
+				</div>
+			</td>
+			<td>BUNKED</td>
+			<td>
+				<div>
+					<img src="{{ bunk.to_user.photo_url }}" height="100"/>
+				</div>
+				<div>				
+					<a href="{{ bunk.to_user.pk }}">{{ bunk.to_user.username }}</a>
+				</div>
+			</td>
+			<td>at {{ bunk.time.time }} on {{ bunk.time.date }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% else %}
+	<p>No bunks!</p>
+{% endif %}
